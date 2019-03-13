@@ -3,13 +3,17 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		String welcomeMessage = "Welcome to (program title here)!\n"
-		+ "This program will find the cheapest edges between vertices in a weighted graph.\n"
-		+ "The program is based on Prim's algorithm (Greedy algorithm).";
+		//VARIABLES
 
-		//Use a Scanner for user interaction
-		Scanner input = new Scanner(System.in);
+		String welcomeMessage = "Welcome to (program title here)!\n"
+		+ "This program will find the most economically efficient edges between vertices in a weighted graph.\n"
+		+ "The program is based on Prim's algorithm (Greedy algorithm), using a 2D array representation.";
+
+		//Store user selection in an int
 		int selection;
+
+		//String for storing method output
+		String MST;
 
 		//Declare price multiplier and unit as final constants
 		final int PRICE_MULTIPLIER = 1000;
@@ -38,28 +42,45 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
-		// PROGRAM STARTS HERE
+		// PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT
 
 		//Welcome message
 		System.out.println(welcomeMessage + "\n");
 
-		do
-		{
-			System.out.print("Select starting vertex (" + (char) (65) + "-" + (char) (65+array.length-1) + "): ");
+		//Call method taking user data and store in a variable
+		selection = userInput(array.length-1);
 
-			//Takes a String input, converts it to uppercase and selects the first (index 0) character
-			//the char is converted to an int and subtracts by 65 (A). A = 0, B = 1, C = 2...
-			selection = (int) input.next().toUpperCase().charAt(0)-65;
+		//Sen
+		MST = calculateMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT);
 
-			//Prints an error if the input is out of bounds
-			if(!(selection >= 0 && selection <= array.length-1))
-				System.out.println("Starting vertex is out of bounds, try again!\n");
-		}while(!(selection >= 0 && selection <= array.length-1));
-
-		System.out.println("\n" + calculateMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT));
+		System.out.println("\n" + MST);
 
 
 	}//End of main
+
+	//Prompts user for starting vertex
+	public static int userInput(int limit)
+	{
+		//Use a Scanner for user interaction
+		Scanner input = new Scanner(System.in);
+		int data;
+
+		do
+		{
+			System.out.print("Select starting vertex for MST (" + (char) (65) + "-" + (char) (65+limit) + "): ");
+
+			//Takes a String input, converts it to uppercase and selects the first (index 0) character
+			//the char is converted to an int and subtracts by 65 (ASCII-value of A). A = 0, B = 1, C = 2...
+			data = (int) input.next().toUpperCase().charAt(0) - 65;
+
+			//Prints an error if the input is out of bounds
+			if(!(data >= 0 && data <= limit))
+				System.out.println("Starting vertex is out of bounds, try again!\n"
+								+"Please use a single character only.\n");
+		}while(!(data >= 0 && data <= limit));
+
+		return data;
+	}
 
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and edges
