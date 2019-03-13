@@ -3,14 +3,17 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		String welcomeMessage = "Welcome to MST!\n";
+		String welcomeMessage = "Welcome to (program title here)!\n"
+		+ "This program will find the cheapest edges between vertices in a weighted graph.\n"
+		+ "The program is based on Prim's algorithm (Greedy algorithm).";
 
 		//Use a Scanner for user interaction
 		Scanner input = new Scanner(System.in);
 		int selection;
 
-		//Declare price multiplier as a final constant
+		//Declare price multiplier and unit as final constants
 		final int PRICE_MULTIPLIER = 1000;
+		final String PRICE_UNIT = "kr";
 
 		//Create an array representation of the weighted graph
 		int[][] array = new int[9][9]; //9*9 array filled with zeros
@@ -35,11 +38,10 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
-		//Debugging: Check values in array
-		//visualizeGraph(array);
+		// PROGRAM STARTS HERE
 
 		//Welcome message
-		System.out.println(welcomeMessage);
+		System.out.println(welcomeMessage + "\n");
 
 		do
 		{
@@ -54,41 +56,14 @@ public class Oblig2
 				System.out.println("Starting vertex is out of bounds, try again!\n");
 		}while(!(selection >= 0 && selection <= array.length-1));
 
-		System.out.println("\n" + calculateMST(array,selection, PRICE_MULTIPLIER));
+		System.out.println("\n" + calculateMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT));
 
 
 	}//End of main
 
-	//Method to visualize the weighted graph and paths
-	public static void visualizeGraph(int[][] graph)
-	{
-		//Print column names for graph:
-		//Converts corresponding int ASCII value to a CHAR
-		for(int i = 0; i<graph.length; i++)
-			System.out.print("\t[" + (char) (65+i) + "]");
-		System.out.print("\n\n");
-
-		//Print table rows
-		for(int row = 0; row<graph.length; row++) //Loops through rows
-		{
-			//Print row names for graph, int ASCII -> CHAR
-			System.out.print("[" + (char) (65+row) + "]\t");
-
-			//Fills the columns in each row
-			for(int col = 0; col<graph[row].length; col++)
-			if(graph[row][col] == 0)
-				System.out.print(" .\t");
-			else
-				System.out.print(" " + graph[row][col] + "\t");
-
-			//Spacing for next row
-			System.out.print("\n\n\n");
-		}
-	}//End of visualizeGraph
-
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and path
-	public static String calculateMST(int[][] graph, int startingVertex, int multiplier)
+	public static String calculateMST(int[][] graph, int startingVertex, int multiplier, String unit)
 	{
 		int from = -1, to = -1, cost = 0;
 		String paths = "";
@@ -126,12 +101,12 @@ public class Oblig2
 			cost += min*multiplier;
 			graph[from][to] = graph[to][from] = 0;
 			unity.add(to);
-			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min + "\n";
+			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + unit + "\n";
 
 		}
 
 		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
-				+ "\nThe total cost is: " + cost + " kr\n\nUsing these edges:\n" + paths;
+				+ "\nThe total cost is: " + cost + " " + unit +"\n\nUsing these edges:\n" + paths;
 	}//End of calculateMST
 
 }//End of Oblig2
