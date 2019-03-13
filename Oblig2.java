@@ -56,7 +56,7 @@ public class Oblig2
 			//Spacing for next row
 			System.out.print("\n\n\n");
 		}
-	}//visualizeGraph
+	}//End of visualizeGraph
 
 	//Calculate minimum spanning tree with root at vertex 0 (A)
 	public static String calculateMST(int[][] graph)
@@ -64,13 +64,17 @@ public class Oblig2
 		//Call the method calculateMST(int[][] graph, int startingVertex),
 		//forwarding array and default startingVertex 0
 		return calculateMST(graph, 0);
-	}
+	}//End of default calculateMST
 
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and path
 	public static String calculateMST(int[][] graph, int startingVertex)
 	{
+		int from, to, cost = 0;
+		List<Integer> unity = new ArrayList<>();
+		unity.add(startingVertex);
+
 		return "";
-	}
+	}//End of specified calculateMST
 
 }//End of Oblig2
