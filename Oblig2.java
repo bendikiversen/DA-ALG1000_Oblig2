@@ -6,6 +6,11 @@ public class Oblig2
 		//Declare and set value of variables representing vertices
 		int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, i = 8;
 
+		//Use a Scanner for user interaction
+		Scanner input = new Scanner(System.in);
+		//char selection;
+		int selection;
+
 		//Create an array representation of the weighted graph
 		int[][] array = new int[9][9]; //9*9 array filled with zeros
 
@@ -27,8 +32,26 @@ public class Oblig2
 		array[g][i] = array[i][g] = 6;	//G - I
 
 		//Debugging: Check values in array
-		visualizeGraph(array);
-		calculateMST(array,c);
+		//visualizeGraph(array);
+
+		//Welcome message
+		System.out.println("Welcome to MST!\n");
+
+		do
+		{
+			System.out.print("Select starting vertex (" + (char) (65) + "-" + (char) (65+array.length-1) + "): ");
+
+			//Takes a String input, selects the 0th character (uppercase)
+			//and converts it to an int and subtracts by 65 (A)
+			selection = (int) input.next().toUpperCase().charAt(0)-65;
+
+			//Prints an error if the input is out of bounds
+			if(!(selection >= 0 && selection <= array.length-1))
+				System.out.println("Starting vertex is out of bounds, try again!\n");
+		}while(!(selection >= 0 && selection <= array.length-1));
+
+		System.out.println("\n" + calculateMST(array,selection));
+
 
 	}//End of main
 
@@ -111,14 +134,14 @@ public class Oblig2
 			cost += min;
 			graph[from][to] = graph[to][from] = 0;
 			unity.add(to);
-			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + ". Cost is: " + min + "\n";
+			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min + "\n";
 			//System.out.println("From " + (char) (65+from) + " to " + (char) (65+to) + ". Cost is: " + min);
 			//System.out.println(unity);
 
 		}
-		System.out.println("Total cost: "+ cost);
-		System.out.print(paths);
-		return "";
+
+		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
+				+ "\nThe total cost is: " + cost + "\n\nUsing these edges:\n" + paths;
 	}//End of specified calculateMST
 
 }//End of Oblig2
