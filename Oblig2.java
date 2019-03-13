@@ -3,11 +3,7 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		//VARIABLES
-
-		String welcomeMessage = "Welcome to (program title here)!\n"
-		+ "This program will find the most economically efficient edges between vertices in a weighted graph.\n"
-		+ "The program is based on Prim's algorithm (Greedy algorithm), using a 2D array representation.";
+		/* ========== SYSTEM VARIABLES, DO NOT EDIT!  ==========*/
 
 		//Store user selection in an int
 		int selection;
@@ -15,12 +11,16 @@ public class Oblig2
 		//String for storing method output
 		String MST;
 
+		//Create an array representation of the weighted graph
+		int[][] array = new int[9][9]; //9*9 array filled with zeros
+
+		/* ========== SYSTEM VARIABLES END ========== */
+
+		/* ========== SITUATION-SPECIFIC VARIABLES ========== */
+
 		//Declare price multiplier and unit as final constants
 		final int PRICE_MULTIPLIER = 1000;
 		final String PRICE_UNIT = "kr";
-
-		//Create an array representation of the weighted graph
-		int[][] array = new int[9][9]; //9*9 array filled with zeros
 
 		//Declare and set value of variables representing vertices
 		int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, i = 8;
@@ -42,16 +42,22 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
-		// PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT
+		String welcomeMessage = "Welcome to (program title here)!\n"
+			+ "This program computes the most economically efficient edges between vertices in a weighted graph.\n"
+			+ "The program is based on Prim's algorithm (Greedy algorithm), using a 2D array representation.";
 
-		//Welcome message
+		/* ========== SITUATION-SPECIFIC VARIABLES END ========== */
+
+		/* PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT */
+
+		//Greet user with welcome message
 		System.out.println(welcomeMessage + "\n");
 
-		//Call method taking user data and store in a variable
+		//Call method taking user data and store it in a variable
 		selection = userInput(array.length-1);
 
-		//Sen
-		MST = calculateMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT);
+		//
+		MST = computeMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT);
 
 		System.out.println("\n" + MST);
 
@@ -72,11 +78,12 @@ public class Oblig2
 			//Takes a String input, converts it to uppercase and selects the first (index 0) character
 			//the char is converted to an int and subtracts by 65 (ASCII-value of A). A = 0, B = 1, C = 2...
 			data = (int) input.next().toUpperCase().charAt(0) - 65;
+			//REPORT//					STRING			CHAR	INT
 
 			//Prints an error if the input is out of bounds
 			if(!(data >= 0 && data <= limit))
 				System.out.println("Starting vertex is out of bounds, try again!\n"
-								+"Please use a single character only.\n");
+								+"Please use a single character only (" + (char) (65) + "-" + (char) (65+limit) + ").\n");
 		}while(!(data >= 0 && data <= limit));
 
 		return data;
@@ -84,11 +91,18 @@ public class Oblig2
 
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and edges
-	public static String calculateMST(int[][] graph, int startingVertex, int multiplier, String unit)
+	public static String computeMST(int[][] graph, int startingVertex, int multiplier, String unit)
 	{
+		//int variables storing path and total cost
 		int from = -1, to = -1, cost = 0;
+
+		//String storing the used edges in graph
 		String edges = "";
+
+		//Use an ArrayList to store the visited vertices
 		List<Integer> unity = new ArrayList<>();
+
+		//Add the starting vertex to unity
 		unity.add(startingVertex);
 
 		//Repeat operations until unity contains all vertices in graph
@@ -116,18 +130,25 @@ public class Oblig2
 						}
 					}//End of to (columns)
 				}
-			}////End of from(rows)
+			}//End of from (rows)
 
-			//Has found cheapest path
+			//Found the most economic edge, add minimum cost
 			cost += min*multiplier;
+
+			//Remove the edge from graph
 			graph[from][to] = graph[to][from] = 0;
+
+			//Add the new vertex to unity
 			unity.add(to);
-			edges += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + unit + "\n";
+
+			//Add edge to log
+			edges += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + " " + unit + "\n";
 
 		}
 
+		//Build MST result and return to calling method
 		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
-				+ "\nThe total cost is " + cost + " " + unit +"\n\nUsing these edges:\n" + edges;
+				+ ":\nThe total cost is " + cost + " " + unit +"\n\nUsing these edges:\n" + edges;
 	}//End of calculateMST
 
 }//End of Oblig2
