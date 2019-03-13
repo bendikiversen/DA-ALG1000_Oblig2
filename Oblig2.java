@@ -58,4 +58,19 @@ public class Oblig2
 		}
 	}//visualizeGraph
 
+	//Calculate minimum spanning tree with root at vertex 0 (A)
+	public static String calculateMST(int[][] graph)
+	{
+		//Call the method calculateMST(int[][] graph, int startingVertex),
+		//forwarding array and default startingVertex 0
+		return calculateMST(graph, 0);
+	}
+
+	//Calculate minimum spanning tree with root at specified vertex
+	//Returns a String with information about MST cost and path
+	public static String calculateMST(int[][] graph, int startingVertex)
+	{
+		return "";
+	}
+
 }//End of Oblig2
