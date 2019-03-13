@@ -26,5 +26,36 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
+		//Debugging: Check values in array
+		visualizeGraph(array);
+
 	}//End of main
+
+	//Method to visualize the weighted graph and paths
+	public static void visualizeGraph(int[][] graph)
+	{
+		//Print column names for graph:
+		//Converts corresponding int ASCII value to a CHAR
+		for(int i = 0; i<graph.length; i++)
+			System.out.print("\t[" + (char) (65+i) + "]");
+		System.out.print("\n\n");
+
+		//Print table rows
+		for(int row = 0; row<graph.length; row++) //Loops through rows
+		{
+			//Print row names for graph, int ASCII -> CHAR
+			System.out.print("[" + (char) (65+row) + "]\t");
+
+			//Fills the columns in each row
+			for(int col = 0; col<graph[row].length; col++)
+			if(graph[row][col] == 0)
+				System.out.print(" .\t");
+			else
+				System.out.print(" " + graph[row][col] + "\t");
+
+			//Spacing for next row
+			System.out.print("\n\n\n");
+		}
+	}//visualizeGraph
+
 }//End of Oblig2
