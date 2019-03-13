@@ -3,7 +3,7 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		//Declare and set value of variables representing nodes
+		//Declare and set value of variables representing vertices
 		int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, i = 8;
 
 		//Create an array representation of the weighted graph
@@ -28,6 +28,7 @@ public class Oblig2
 
 		//Debugging: Check values in array
 		visualizeGraph(array);
+		calculateMST(array,c);
 
 	}//End of main
 
@@ -70,10 +71,53 @@ public class Oblig2
 	//Returns a String with information about MST cost and path
 	public static String calculateMST(int[][] graph, int startingVertex)
 	{
-		int from, to, cost = 0;
+		int from = -1, to = -1, cost = 0;
+		String paths = "";
 		List<Integer> unity = new ArrayList<>();
 		unity.add(startingVertex);
 
+		//Repeat operations until unity contains all vertices in graph
+		while(unity.size() < graph.length)
+		{
+			//Temporary int for minimum value
+			//Using the constant Integer.MAX_VALUE
+			int min = Integer.MAX_VALUE;
+
+			//Rows: from-vertex
+			for(int r = 0; r < graph.length; r++)
+			{
+				//Check whether the current from-vertex is in the unity
+				if(unity.contains(r))
+				{
+					//Colums: to-vertex
+					for(int c = 0; c < graph[r].length; c++)
+					{
+						//Skip vertices already in the unity
+						if(!unity.contains(c))
+						{
+							//Edge-weight (path) is smaller than min but not 0
+							if(graph[r][c] < min && graph[r][c] != 0)
+							{
+								min = graph[r][c];
+								from = r;
+								to = c;
+							}
+						}
+					}//End of column-for
+				}
+			}//End of row-for
+
+			//Has found cheapest path
+			cost += min;
+			graph[from][to] = graph[to][from] = 0;
+			unity.add(to);
+			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + ". Cost is: " + min + "\n";
+			//System.out.println("From " + (char) (65+from) + " to " + (char) (65+to) + ". Cost is: " + min);
+			//System.out.println(unity);
+
+		}
+		System.out.println("Total cost: "+ cost);
+		System.out.print(paths);
 		return "";
 	}//End of specified calculateMST
 
