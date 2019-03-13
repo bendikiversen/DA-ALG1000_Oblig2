@@ -3,16 +3,20 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		//Declare and set value of variables representing vertices
-		int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, i = 8;
+		String welcomeMessage = "Welcome to MST!\n";
 
 		//Use a Scanner for user interaction
 		Scanner input = new Scanner(System.in);
-		//char selection;
 		int selection;
+
+		//Declare price multiplier as a final constant
+		final int PRICE_MULTIPLIER = 1000;
 
 		//Create an array representation of the weighted graph
 		int[][] array = new int[9][9]; //9*9 array filled with zeros
+
+		//Declare and set value of variables representing vertices
+		int a = 0, b = 1, c = 2, d = 3, e = 4, f = 5, g = 6, h = 7, i = 8;
 
 		//Add the graph edges to array
 		array[a][b] = array[b][a] = 9;	//A - B
@@ -35,7 +39,7 @@ public class Oblig2
 		//visualizeGraph(array);
 
 		//Welcome message
-		System.out.println("Welcome to MST!\n");
+		System.out.println(welcomeMessage);
 
 		do
 		{
@@ -50,7 +54,7 @@ public class Oblig2
 				System.out.println("Starting vertex is out of bounds, try again!\n");
 		}while(!(selection >= 0 && selection <= array.length-1));
 
-		System.out.println("\n" + calculateMST(array,selection));
+		System.out.println("\n" + calculateMST(array,selection, PRICE_MULTIPLIER));
 
 
 	}//End of main
@@ -82,17 +86,9 @@ public class Oblig2
 		}
 	}//End of visualizeGraph
 
-	//Calculate minimum spanning tree with root at vertex 0 (A)
-	public static String calculateMST(int[][] graph)
-	{
-		//Call the method calculateMST(int[][] graph, int startingVertex),
-		//forwarding array and default startingVertex 0
-		return calculateMST(graph, 0);
-	}//End of default calculateMST
-
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and path
-	public static String calculateMST(int[][] graph, int startingVertex)
+	public static String calculateMST(int[][] graph, int startingVertex, int multiplier)
 	{
 		int from = -1, to = -1, cost = 0;
 		String paths = "";
@@ -103,7 +99,7 @@ public class Oblig2
 		while(unity.size() < graph.length)
 		{
 			//Temporary int for minimum value
-			//Using the constant Integer.MAX_VALUE
+			//Using the constant Integer.MAX_VALUE for comparison
 			int min = Integer.MAX_VALUE;
 
 			//Rows: from-vertex
@@ -115,33 +111,27 @@ public class Oblig2
 					//Colums: to-vertex
 					for(int c = 0; c < graph[r].length; c++)
 					{
-						//Skip vertices already in the unity
-						if(!unity.contains(c))
+						//Vertex not in unity and 0 < edge < min
+						if(!unity.contains(c) && graph[r][c] < min && graph[r][c] != 0)
 						{
-							//Edge-weight (path) is smaller than min but not 0
-							if(graph[r][c] < min && graph[r][c] != 0)
-							{
-								min = graph[r][c];
-								from = r;
-								to = c;
-							}
+							min = graph[r][c];
+							from = r;
+							to = c;
 						}
-					}//End of column-for
+					}//End of to (columns)
 				}
-			}//End of row-for
+			}////End of from(rows)
 
 			//Has found cheapest path
-			cost += min;
+			cost += min*multiplier;
 			graph[from][to] = graph[to][from] = 0;
 			unity.add(to);
 			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min + "\n";
-			//System.out.println("From " + (char) (65+from) + " to " + (char) (65+to) + ". Cost is: " + min);
-			//System.out.println(unity);
 
 		}
 
 		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
-				+ "\nThe total cost is: " + cost + "\n\nUsing these edges:\n" + paths;
-	}//End of specified calculateMST
+				+ "\nThe total cost is: " + cost + " kr\n\nUsing these edges:\n" + paths;
+	}//End of calculateMST
 
 }//End of Oblig2
