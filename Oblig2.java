@@ -47,8 +47,8 @@ public class Oblig2
 		{
 			System.out.print("Select starting vertex (" + (char) (65) + "-" + (char) (65+array.length-1) + "): ");
 
-			//Takes a String input, selects the 0th character (uppercase)
-			//and converts it to an int and subtracts by 65 (A)
+			//Takes a String input, converts it to uppercase and selects the first (index 0) character
+			//the char is converted to an int and subtracts by 65 (A). A = 0, B = 1, C = 2...
 			selection = (int) input.next().toUpperCase().charAt(0)-65;
 
 			//Prints an error if the input is out of bounds
@@ -62,11 +62,11 @@ public class Oblig2
 	}//End of main
 
 	//Calculate minimum spanning tree with root at specified vertex
-	//Returns a String with information about MST cost and path
+	//Returns a String with information about MST cost and edges
 	public static String calculateMST(int[][] graph, int startingVertex, int multiplier, String unit)
 	{
 		int from = -1, to = -1, cost = 0;
-		String paths = "";
+		String edges = "";
 		List<Integer> unity = new ArrayList<>();
 		unity.add(startingVertex);
 
@@ -101,12 +101,12 @@ public class Oblig2
 			cost += min*multiplier;
 			graph[from][to] = graph[to][from] = 0;
 			unity.add(to);
-			paths += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + unit + "\n";
+			edges += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + unit + "\n";
 
 		}
 
 		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
-				+ "\nThe total cost is: " + cost + " " + unit +"\n\nUsing these edges:\n" + paths;
+				+ "\nThe total cost is " + cost + " " + unit +"\n\nUsing these edges:\n" + edges;
 	}//End of calculateMST
 
 }//End of Oblig2
