@@ -61,6 +61,8 @@ public class Oblig2
 
 		System.out.println("\n" + MST);
 
+		System.out.println("\nProgram complete, goodbye!");
+
 
 	}//End of main
 
@@ -112,13 +114,13 @@ public class Oblig2
 			//Using the constant Integer.MAX_VALUE for comparison
 			int min = Integer.MAX_VALUE;
 
-			//Rows: from-vertex
-			//for(int r = 0; r < graph.length; r++)
-			for(int i = 0; i < unity.size(); i++)
+			//Rows: from-vertex in unity
+			for(int u = 0; u < unity.size(); u++)
 			{
-				int r = unity.get(i);
-				//Check whether the current from-vertex is in the unity
-					//Colums: to-vertex
+				//Get rows in unity
+				int r = unity.get(u);
+
+				//Colums: to-vertex
 				for(int c = 0; c < graph[r].length; c++)
 				{
 					//Vertex not in unity and 0 < edge < min
