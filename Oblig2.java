@@ -73,9 +73,11 @@ public class Oblig2
 		Scanner input = new Scanner(System.in);
 		int data;
 
+		char a = (char) (65), b = (char) (65+limit);
+
 		do
 		{
-			System.out.print("Select starting vertex for MST (" + (char) (65) + "-" + (char) (65+limit) + "): ");
+			System.out.print("Select starting vertex for MST (" + a + "-" + b + "): ");
 
 			//Takes a String input, converts it to uppercase and selects the first (index 0) character
 			//the char is converted to an int and subtracts by 65 (ASCII-value of A). A = 0, B = 1, C = 2...
@@ -85,7 +87,7 @@ public class Oblig2
 			//Prints an error if the input is out of bounds
 			if(!(data >= 0 && data <= limit))
 				System.out.println("Starting vertex is out of bounds, try again!\n"
-					+"Please use a single character only (" + (char) (65) + "-" + (char) (65+limit) + ").\n");
+					+"Please use a single character only (" + a + "-" + b + ").\n");
 		}while(!(data >= 0 && data <= limit));
 
 		return data;
