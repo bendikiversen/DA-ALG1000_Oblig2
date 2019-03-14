@@ -113,24 +113,23 @@ public class Oblig2
 			int min = Integer.MAX_VALUE;
 
 			//Rows: from-vertex
-			for(int r = 0; r < graph.length; r++)
+			//for(int r = 0; r < graph.length; r++)
+			for(int i = 0; i < unity.size(); i++)
 			{
+				int r = unity.get(i);
 				//Check whether the current from-vertex is in the unity
-				if(unity.contains(r))
-				{
 					//Colums: to-vertex
-					for(int c = 0; c < graph[r].length; c++)
+				for(int c = 0; c < graph[r].length; c++)
+				{
+					//Vertex not in unity and 0 < edge < min
+					if(!unity.contains(c) && graph[r][c] < min && graph[r][c] != 0)
 					{
-						//Vertex not in unity and 0 < edge < min
-						if(!unity.contains(c) && graph[r][c] < min && graph[r][c] != 0)
-						{
-							min = graph[r][c];
-							from = r;
-							to = c;
-						}
-					}//End of to (columns)
-				}
-			}//End of from (rows)
+						min = graph[r][c];
+						from = r;
+						to = c;
+					}
+				}//End of to (columns)
+			}//End of from (rows in unity)
 
 			//Found the most economic edge, add minimum cost
 			cost += min*multiplier;
