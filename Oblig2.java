@@ -3,7 +3,7 @@ public class Oblig2
 {
 	public static void main(String[] args)
 	{
-		/* ========== SYSTEM VARIABLES, DO NOT EDIT!  ==========*/
+		/* ========== SYSTEM VARIABLES, DO NOT EDIT!  ========== */
 
 		//Store user selection in an int
 		int selection;
@@ -16,7 +16,7 @@ public class Oblig2
 
 		/* ========== SYSTEM VARIABLES END ========== */
 
-		/* ========== SITUATION-SPECIFIC VARIABLES ========== */
+		/* ========== SITUATION-SPECIFIC VARIABLES, SEE MANUAL ========== */
 
 		//Declare price multiplier and unit as final constants
 		final int PRICE_MULTIPLIER = 1000;
@@ -48,7 +48,7 @@ public class Oblig2
 
 		/* ========== SITUATION-SPECIFIC VARIABLES END ========== */
 
-		/* PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT */
+		/* PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT! */
 
 		//Greet user with welcome message
 		System.out.println(welcomeMessage + "\n");
@@ -83,11 +83,11 @@ public class Oblig2
 			//Prints an error if the input is out of bounds
 			if(!(data >= 0 && data <= limit))
 				System.out.println("Starting vertex is out of bounds, try again!\n"
-								+"Please use a single character only (" + (char) (65) + "-" + (char) (65+limit) + ").\n");
+					+"Please use a single character only (" + (char) (65) + "-" + (char) (65+limit) + ").\n");
 		}while(!(data >= 0 && data <= limit));
 
 		return data;
-	}
+	}//End of userInput
 
 	//Calculate minimum spanning tree with root at specified vertex
 	//Returns a String with information about MST cost and edges
