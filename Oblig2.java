@@ -56,12 +56,14 @@ public class Oblig2
 		//Call method taking user data and store it in a variable
 		selection = userInput(array.length-1);
 
-		//
-		MST = computeMST(array,selection, PRICE_MULTIPLIER, PRICE_UNIT);
+		//Call computeMST method passing array, starting vertex and price properties
+		MST = computeMST(array, selection, PRICE_MULTIPLIER, PRICE_UNIT);
 
+		//Print MST
 		System.out.println("\n" + MST);
 
-		System.out.println("\nProgram complete, goodbye!");
+		//Program finished
+		System.out.println("\nProgram complete, exiting...");
 
 
 	}//End of main
@@ -98,7 +100,7 @@ public class Oblig2
 	public static String computeMST(int[][] graph, int startingVertex, int multiplier, String unit)
 	{
 		//int variables storing path and total cost
-		int from = -1, to = -1, cost = 0;
+		int current = 0, next = 0, cost = 0;
 
 		//String storing the used edges in graph
 		String edges = "";
@@ -113,7 +115,7 @@ public class Oblig2
 		while(unity.size() < graph.length)
 		{
 			//Temporary int for minimum value
-			//Using the constant Integer.MAX_VALUE for comparison
+			//The constant Integer.MAX_VALUE is largest int
 			int min = Integer.MAX_VALUE;
 
 			//Rows: from-vertex in unity
@@ -129,8 +131,8 @@ public class Oblig2
 					if(!unity.contains(c) && graph[r][c] < min && graph[r][c] != 0)
 					{
 						min = graph[r][c];
-						from = r;
-						to = c;
+						current = r;
+						next = c;
 					}
 				}//End of to (columns)
 			}//End of from (rows in unity)
@@ -138,14 +140,14 @@ public class Oblig2
 			//Found the most economic edge, add minimum cost
 			cost += min*multiplier;
 
-			//Remove the edge from graph
-			graph[from][to] = graph[to][from] = 0;
+			//Remove the edge from graph (must set both ways)
+			graph[current][next] = graph[next][current] = 0;
 
 			//Add the new vertex to unity
-			unity.add(to);
+			unity.add(next);
 
-			//Add edge to log
-			edges += "From " + (char) (65+from) + " to " + (char) (65+to) + "\tcost: " + min*multiplier + " " + unit + "\n";
+			//Add edge to history
+			edges += "From " + (char) (65+current) + " to " + (char) (65+next) + "\tcost: " + min*multiplier + " " + unit + "\n";
 
 		}
 
