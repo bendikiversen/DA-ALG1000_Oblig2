@@ -42,7 +42,7 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
-		String welcomeMessage = "Welcome to (program title here)!\n"
+		String welcomeMessage = "Welcome to MST!\n"
 			+ "This program computes the most economically efficient edges between vertices in a weighted graph.\n"
 			+ "The program is based on Prim's algorithm (Greedy algorithm), using a 2D array representation.";
 
