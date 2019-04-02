@@ -168,6 +168,7 @@ public class Oblig2
 			unity.add(next);
 
 			//Add edge to history
+			//Converts index to char
 			edges += "From " + (char) (65+current) + " to " + (char) (65+next)
 			+ "\tcost: " + min*multiplier + " " + unit + "\n";
 
