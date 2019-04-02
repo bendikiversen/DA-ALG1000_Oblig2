@@ -7,7 +7,7 @@ import java.util.*;
 *
 * @author  Bendik Iversen
 * @version 1.0
-* @since   27.03.2019
+* @since   02.04.2019
 */
 
 public class Oblig2
@@ -81,7 +81,12 @@ public class Oblig2
 
 	}//End of main
 
-	//Prompts user for starting vertex
+	/**
+	 * Prompts user for starting vertex
+	 *
+	 * @param	limit	Length of array
+	 * @return			An integer corresponding to index in array
+ 	 */
 	public static int userInput(int limit)
 	{
 		//Use a Scanner for user interaction
@@ -95,9 +100,8 @@ public class Oblig2
 			System.out.print("Select starting vertex for MST (" + a + "-" + b + "): ");
 
 			//Takes a String input, converts it to uppercase and selects the first (index 0) character
-			//the char is converted to an int and subtracts by 65 (ASCII-value of A). A = 0, B = 1, C = 2...
+			//the char is converted to an int and subtracts by 65 (ASCII-value of A).
 			data = (int) input.next().toUpperCase().charAt(0) - 65;
-			//REPORT//					STRING			CHAR	INT
 
 			//Prints an error if the input is out of bounds
 			if(!(data >= 0 && data < limit))
@@ -108,8 +112,15 @@ public class Oblig2
 		return data;
 	}//End of userInput
 
-	//Calculate minimum spanning tree with root at specified vertex
-	//Returns a String with information about MST cost and edges
+	/**
+	 * Calculate minimum spanning tree with root at specified vertex
+	 *
+	 * @param	graph			2d-array representing weighted, undirected graph
+	 * @param	startingVertex	Index in array to compute MST from
+	 * @param	multiplier		Cost multiplier of edges
+	 * @param	unit			Currency unit to append to cost
+	 * @return 					String with information about MST cost and edges
+ 	 */
 	public static String computeMST(int[][] graph, int startingVertex, int multiplier, String unit)
 	{
 		//int variables storing path and total cost
@@ -153,14 +164,12 @@ public class Oblig2
 			//Found the most economic edge, add minimum cost
 			cost += min*multiplier;
 
-			//Remove the edge from graph (must set both ways)
-			graph[current][next] = graph[next][current] = 0;
-
 			//Add the new vertex to unity
 			unity.add(next);
 
 			//Add edge to history
-			edges += "From " + (char) (65+current) + " to " + (char) (65+next) + "\tcost: " + min*multiplier + " " + unit + "\n";
+			edges += "From " + (char) (65+current) + " to " + (char) (65+next)
+			+ "\tcost: " + min*multiplier + " " + unit + "\n";
 
 		}
 
@@ -168,5 +177,4 @@ public class Oblig2
 		return "Minimum Spanning Tree (MST) from " + (char) (65+startingVertex)
 				+ ":\nThe total cost is " + cost + " " + unit +"\n\nUsing these edges:\n" + edges;
 	}//End of calculateMST
-
 }//End of Oblig2
