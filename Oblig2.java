@@ -31,7 +31,7 @@ public class Oblig2
 		final String PRICE_UNIT = "kr";
 
 		//Welcome message to be printed at launch
-		final String welcomeMessage = "Welcome to Oblig 2 - MST!\n"
+		final String welcomeMessage = "Welcome to Oblig 2 (MST)!\n"
 		+ "This program computes the most economically edges \n"
 		+ "between vertices in an undirected, weighted graph.\n"
 		+ "The program is based on Prim's algorithm (Greedy algorithm).";
@@ -59,7 +59,7 @@ public class Oblig2
 		array[g][h] = array[h][g] = 12; //G - H
 		array[g][i] = array[i][g] = 6;	//G - I
 
-		/* ========== SITUATION-SPECIFIC VARIABLES END ========== */
+		/* ========== SITUATION VARIABLES END ========== */
 
 		/* PROGRAM FUNCTIONS STARTS BELOW THIS LINE, DO NOT EDIT! */
 
