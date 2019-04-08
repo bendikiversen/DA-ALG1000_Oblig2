@@ -109,6 +109,8 @@ public class Oblig2
 					+"Please use a single character only (" + a + "-" + b + ").\n");
 		}while(!(data >= 0 && data < limit));
 
+		input.close();
+
 		return data;
 	}//End of userInput
 
